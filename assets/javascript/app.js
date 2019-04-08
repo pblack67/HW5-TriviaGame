@@ -3,7 +3,7 @@ var timerId = 0;
 var questionTimeValue = 15;
 var betweenQuestionTimeValue = 5;
 var questionNumber = 0;
-var correctAnswers = 0;
+var rightAnswers = 0;
 var wrongAnswers = 0;
 
 var question1 = {
@@ -22,6 +22,7 @@ var questions = [question1, question2];
 
 function startQuestionTimer() {
     timer = questionTimeValue;
+    $("#timer").text("Time remaining: " + timer);
     timerId = setInterval(timerHandler, 1000);
 }
 
@@ -43,6 +44,13 @@ function initializeQuestion() {
     $("#reset").hide();
 }
 
+function gameOver() {
+    console.log("Game Over");
+    $("#right").text("You had "+ rightAnswers + " correct answers");
+    $("#wrong").text(" and " + wrongAnswers + " incorrect answers");
+    $("#reset").show();
+}
+
 // on answer click
 function handleAnswerClick(radioButton) {
     console.log("Answer selected", radioButton.val());
@@ -53,21 +61,21 @@ function handleAnswerClick(radioButton) {
     if (radioButton.val() === correctAnswer) {
         //          display happy message
         $("#resultText").text("Correct! You're an opera whiz!");
-        correctAnswers++;
+        rightAnswers++;
     } else {
         //          display correct answer
         $("#resultText").text("The correct answer is " + correctAnswer + ". Study up on your operas!");
         wrongAnswers++;
     }
 
+    $("#timer").text("Time remaining: 0");
     questionNumber++;
     if (questionNumber < questions.length) {
         startBetweenQuestionTimer();
     } else {
         // handle end of game here
         clearInterval(timerId);
-        console.log("Game Over");
-        $("#reset").show();
+        gameOver();
     }
 }
 
@@ -90,10 +98,10 @@ function betweenQuestionHandler() {
 // on question timer event 
 function timerHandler() {
     //      decrement question timer
-    console.log("Timer remaining:", timer);
     timer--;
-    //      update the screen
+    console.log("Timer remaining:", timer);
     $("#timer").text("Time remaining: " + timer);
+    //      update the screen
     //      if timer value is 0
     if (timer === 0) {
         //          stop question timer
@@ -108,17 +116,19 @@ function timerHandler() {
             startBetweenQuestionTimer();
         } else {
             // game over
-            console.log("Game Over");
-            $("#reset").show();
+            gameOver();
         }
     }
 }
 
 function reset() {
-    questionNumber = 0;
-    correctAnswers = 0;
+    // reset right/wrong
+    rightAnswers = 0;
     wrongAnswers = 0;
+    $("#right").text("");
+    $("#wrong").text("");
     // initialize page with first question
+    questionNumber = 0;
     initializeQuestion();
     // initialize question timer
     startQuestionTimer();
@@ -136,5 +146,3 @@ $(document).ready(function () {
 
     reset();
 });
-
-

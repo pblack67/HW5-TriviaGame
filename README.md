@@ -1,0 +1,1 @@
+This application is an opera trivia game for all opera fans! What? You're not an opera fan? Here's a great chance to learn more about opera as you go through the quiz. If you do well enough, I'll take you to the opera!

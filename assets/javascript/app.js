@@ -5,17 +5,18 @@ var betweenQuestionTimeValue = 5;
 var questionNumber = 0;
 var rightAnswers = 0;
 var wrongAnswers = 0;
+var noAnswers = 0;
 
 var question1 = {
     questionText: "In which opera are there no deaths?",
     answers: ["Tosca", "Barber of Seville", "Rigoletto", "Carmen"],
-    correctAnswer: "b"
+    correctAnswer: 1
 }
 
 var question2 = {
     questionText: "Which of the following is not the name of a real opera?",
     answers: ["Ernani", "Eugene Onegin", "Camembert", "The Nose"],
-    correctAnswer: "c"
+    correctAnswer: 2
 }
 
 var questions = [question1, question2];
@@ -40,43 +41,47 @@ function initializeQuestion() {
     $("#answer3Text").text(question.answers[2]);
     $("#answer4Text").text(question.answers[3]);
     $(".answers").prop("checked", false);
+    $(".answers").prop("disabled", false);
     $("#resultText").text("");
     $("#reset").hide();
 }
 
 function gameOver() {
     console.log("Game Over");
-    $("#right").text("You had "+ rightAnswers + " correct answers");
-    $("#wrong").text(" and " + wrongAnswers + " incorrect answers");
+    $("#finalScore").text("You had " + rightAnswers + " correct answers" + " and " + wrongAnswers + " incorrect answers.");
+    if (noAnswers > 0) {
+        $("#unanswered").text("You didn't answer " + noAnswers + " questions! For shame!");
+    }
+    $("#questionArea").hide();
+    $("#resultText").text("");
     $("#reset").show();
 }
 
 // on answer click
 function handleAnswerClick(radioButton) {
     console.log("Answer selected", radioButton.val());
+    $(".answers").prop("disabled", true);
     //      stop question timer 
     clearInterval(timerId);
     //      if correct answer
     var correctAnswer = questions[questionNumber].correctAnswer;
-    if (radioButton.val() === correctAnswer) {
+    var userAnswer = parseInt(radioButton.val());
+    if (userAnswer === correctAnswer) {
         //          display happy message
         $("#resultText").text("Correct! You're an opera whiz!");
         rightAnswers++;
     } else {
         //          display correct answer
-        $("#resultText").text("The correct answer is " + correctAnswer + ". Study up on your operas!");
+        $("#resultText").text("The correct answer is " +
+            questions[questionNumber].answers[correctAnswer] +
+            ". Study up on your operas!");
         wrongAnswers++;
     }
 
     $("#timer").text("Time remaining: 0");
     questionNumber++;
-    if (questionNumber < questions.length) {
-        startBetweenQuestionTimer();
-    } else {
-        // handle end of game here
-        clearInterval(timerId);
-        gameOver();
-    }
+    clearInterval(timerId);
+    startBetweenQuestionTimer();
 }
 
 // on between question timer event
@@ -88,10 +93,17 @@ function betweenQuestionHandler() {
     if (timer === 0) {
         //          stop between question timer
         clearInterval(timerId);
-        //          display next question
-        initializeQuestion();
-        //          start question timer
-        startQuestionTimer();
+        
+        if (questionNumber < questions.length) {
+            //          display next question
+            initializeQuestion();
+            //          start question timer
+            startQuestionTimer();
+        } else {
+            // handle end of game here
+            gameOver();
+        }
+
     }
 }
 
@@ -107,9 +119,11 @@ function timerHandler() {
         //          stop question timer
         clearInterval(timerId);
         //          display correct answer
-        var correctAnswer = questions[questionNumber].correctAnswer;
-        $("#resultText").text("The correct answer is " + correctAnswer + ". Study up on your operas!");
-        wrongAnswers++;
+        var answerIndex = questions[questionNumber].correctAnswer;
+        $("#resultText").text("The correct answer is " +
+            questions[questionNumber].answers[answerIndex] +
+            ". Study up on your operas!");
+        noAnswers++;
         //          start timer for between questions
         questionNumber++;
         if (questionNumber < questions.length) {
@@ -125,8 +139,10 @@ function reset() {
     // reset right/wrong
     rightAnswers = 0;
     wrongAnswers = 0;
-    $("#right").text("");
-    $("#wrong").text("");
+    noAnswers = 0;
+    $("#finalScore").text("");
+    $("#unanswered").text("");
+    $("#questionArea").show();
     // initialize page with first question
     questionNumber = 0;
     initializeQuestion();
@@ -144,5 +160,6 @@ $(document).ready(function () {
         reset();
     });
 
-    reset();
+    $("#questionArea").hide();
+    $("#reset").show();
 });

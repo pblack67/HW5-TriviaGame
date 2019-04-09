@@ -10,25 +10,30 @@
 </head>
 
 <body>
-    <h1>Opera Trivia!</h1>
-    <h3>Test your opera knowledge while having fun!</h3>
-    <br>
-    <div id="questionArea">
-        <h3 id=timer>Time remaining: </h3>
-        <h4 id=questionText></h4>
-        <input type="radio" id=answer1 class="answers" name="answers" value="0">
-        <label id="answer1Text"></label><br>
-        <input type="radio" id=answer2 class="answers" name="answers" value="1">
-        <label id="answer2Text"></label><br>
-        <input type="radio" id=answer3 class="answers" name="answers" value="2">
-        <label id="answer3Text"></label><br>
-        <input type="radio" id=answer4 class="answers" name="answers" value="3">
-        <label id="answer4Text"></label><br>
+    <div id="game">
+        <h1>Opera Trivia!</h1>
+        <h3>Test your opera knowledge while having fun!</h3>
+        <br>
+        <div id="questionArea">
+            <h3 id=timer>Time remaining: </h3>
+            <h4 id=questionText></h4>
+            <div id="answerArea">
+                <button id=answer1Button class="answers" name="answers" value="0"></button>
+                <br>
+                <button id=answer2Button class="answers" name="answers" value="1"></button>
+                <br>
+                <button id=answer3Button class="answers" name="answers" value="2"></button>
+                <br>
+                <button id=answer4Button class="answers" name="answers" value="3"></button>
+                <br>
+            </div>
+        </div>
+        <h3 id="resultText"></h3>
+        <h3 id="finalScore"></h3>
+        <h3 id="unanswered"></h3>
+        <button id="reset">Play Trivia Game</button>
     </div>
-    <h3 id="resultText"></h3>
-    <h3 id="finalScore"></h3>
-    <h3 id="unanswered"></h3>
-    <button id="reset">Play Trivia Game</button>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>

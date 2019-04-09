@@ -36,10 +36,10 @@ function startBetweenQuestionTimer() {
 function initializeQuestion() {
     var question = questions[questionNumber];
     $("#questionText").text(question.questionText);
-    $("#answer1Text").text(question.answers[0]);
-    $("#answer2Text").text(question.answers[1]);
-    $("#answer3Text").text(question.answers[2]);
-    $("#answer4Text").text(question.answers[3]);
+    $("#answer1Button").text(question.answers[0]);
+    $("#answer2Button").text(question.answers[1]);
+    $("#answer3Button").text(question.answers[2]);
+    $("#answer4Button").text(question.answers[3]);
     $(".answers").prop("checked", false);
     $(".answers").prop("disabled", false);
     $("#resultText").text("");

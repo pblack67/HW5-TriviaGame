@@ -1,0 +1,28 @@
+* {
+    color: white;
+}
+
+body {
+    background-image: url("../images/6957085-sydney-opera-house-wallpaper.jpg");
+    background-size: cover;
+}
+
+button {
+    color: white;
+    background-color: purple;
+    width: 300px;
+    margin: 5px;
+    padding: 5px;
+}
+
+button:hover {
+    background-color: darkviolet;
+}
+
+#game {
+    text-align: center;
+}
+
+#answerArea { 
+    /* text-align: left; */
+}

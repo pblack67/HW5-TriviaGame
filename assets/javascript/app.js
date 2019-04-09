@@ -40,8 +40,7 @@ function initializeQuestion() {
     $("#answer2Button").text(question.answers[1]);
     $("#answer3Button").text(question.answers[2]);
     $("#answer4Button").text(question.answers[3]);
-    $(".answers").prop("checked", false);
-    $(".answers").prop("disabled", false);
+    $("#answerArea").show();
     $("#resultText").text("");
     $("#reset").hide();
 }
@@ -60,20 +59,24 @@ function gameOver() {
 // on answer click
 function handleAnswerClick(radioButton) {
     console.log("Answer selected", radioButton.val());
-    $(".answers").prop("disabled", true);
+    // $(".answers").prop("disabled", true);
+    $("#answerArea").hide();
     //      stop question timer 
     clearInterval(timerId);
     //      if correct answer
     var correctAnswer = questions[questionNumber].correctAnswer;
+    var correctAnswerText = questions[questionNumber].answers[correctAnswer];
     var userAnswer = parseInt(radioButton.val());
     if (userAnswer === correctAnswer) {
         //          display happy message
-        $("#resultText").text("Correct! You're an opera whiz!");
+        $("#resultText").text(correctAnswerText + " is correct! You're an opera whiz!");
         rightAnswers++;
     } else {
         //          display correct answer
-        $("#resultText").text("The correct answer is " +
-            questions[questionNumber].answers[correctAnswer] +
+        var userAnswer = parseInt(radioButton.val());
+        var userAnswerText = questions[questionNumber].answers[userAnswer];
+            $("#resultText").text(userAnswerText + " is incorrect. The correct answer is " +
+            correctAnswerText +
             ". Study up on your operas!");
         wrongAnswers++;
     }
@@ -118,9 +121,10 @@ function timerHandler() {
     if (timer === 0) {
         //          stop question timer
         clearInterval(timerId);
+        $("#answerArea").hide();
         //          display correct answer
         var answerIndex = questions[questionNumber].correctAnswer;
-        $("#resultText").text("The correct answer is " +
+        $("#resultText").text("You didn't answer the question! The correct answer is " +
             questions[questionNumber].answers[answerIndex] +
             ". Study up on your operas!");
         noAnswers++;

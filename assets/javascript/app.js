@@ -7,35 +7,43 @@ var rightAnswers = 0;
 var wrongAnswers = 0;
 var noAnswers = 0;
 
-var question1 = {
-    questionText: "In which opera are there no deaths?",
-    answers: ["Tosca", "Barber of Seville", "Rigoletto", "Carmen"],
-    correctAnswer: 1,
-    rewardImage: "assets/images/rabbitofseville.jpg"
-}
+var questions = [
+    {
+        questionText: "In which opera are there no deaths?",
+        answers: ["Tosca", "Barber of Seville", "Rigoletto", "Carmen"],
+        correctAnswer: 1,
+        rewardImage: "assets/images/rabbitofseville.jpg"
+    },
 
-var question2 = {
-    questionText: "Which of the following is not the name of a real opera?",
-    answers: ["Ernani", "Eugene Onegin", "Camembert", "The Nose"],
-    correctAnswer: 2,
-    rewardImage: "assets/images/Camembert.jpg"
-}
+    {
+        questionText: "Which of the following is not the name of a real opera?",
+        answers: ["Ernani", "Eugene Onegin", "Camembert", "The Nose"],
+        correctAnswer: 2,
+        rewardImage: "assets/images/Camembert.jpg"
+    },
 
-var question3 = {
-    questionText: "Who wrote the opera Aida?",
-    answers: ["Rossini", "Dvorak", "Verdi", "Jay Z"],
-    correctAnswer: 2,
-    rewardImage: "assets/images/Giuseppi_Verdi.jpg"
-}
+    {
+        questionText: "Who wrote the opera Aida?",
+        answers: ["Rossini", "Dvorak", "Verdi", "Jay Z"],
+        correctAnswer: 2,
+        rewardImage: "assets/images/Giuseppi_Verdi.jpg"
+    },
 
-var question4 = {
-    questionText: "Who is the creative consultant of the Lyric Opera of Chicago?",
-    answers: ["Renee Fleming", "Placido Domingo", "Yo Yo Ma", "Chance the Rapper"],
-    correctAnswer: 0,
-    rewardImage: "assets/images/Fleming.jpg"
-}
+    {
+        questionText: "Who is the creative consultant of the Lyric Opera of Chicago?",
+        answers: ["Renee Fleming", "Placido Domingo", "Yo Yo Ma", "Chance the Rapper"],
+        correctAnswer: 0,
+        rewardImage: "assets/images/Fleming.jpg"
+    },
 
-var questions = [question1, question2, question3, question4];
+    {
+        questionText: "Who does Carmen seduce in Bizet's Carmen?",
+        answers: ["Don Carlo", "Don Quixote", "Don Ho", "Don Jose"],
+        correctAnswer: 3,
+        rewardImage: "assets/images/carmen.jpg"
+    }
+]
+// var questions = [question1, question2, question3, question4, question5];
 
 function startQuestionTimer() {
     timer = questionTimeValue;
@@ -58,6 +66,7 @@ function initializeQuestion() {
     $("#answer4Button").text(question.answers[3]);
     $("#answerArea").show();
     $("#resultText").text("");
+    $("#rewardImage").attr("src", "");
     $("#rewardImage").hide();
     $("#reset").hide();
 }
@@ -70,7 +79,7 @@ function gameOver() {
     }
     $("#questionArea").hide();
     $("#resultText").text("");
-    $("#rewardImage").hide();    
+    $("#rewardImage").hide();
     $("#reset").show();
 }
 

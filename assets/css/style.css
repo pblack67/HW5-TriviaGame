@@ -1,10 +1,26 @@
 * {
     color: white;
+    font-family: 'Great Vibes', cursive;
 }
 
 body {
     background-image: url("../images/6957085-sydney-opera-house-wallpaper.jpg");
     background-size: cover;
+}
+
+h1 {
+    font-size: 4em;
+    margin: 10px;
+}
+
+h2 {
+    font-size: 3em;
+    margin: 10px;
+}
+
+h3 {
+    font-size: 2em;
+    margin: 5px;
 }
 
 button {
@@ -14,6 +30,7 @@ button {
     margin: 5px;
     padding: 5px;
     border-color: purple;
+    font-size: 1.5em;
 }
 
 button:hover {

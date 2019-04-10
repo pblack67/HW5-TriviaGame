@@ -13,6 +13,7 @@ button {
     width: 300px;
     margin: 5px;
     padding: 5px;
+    border-color: purple;
 }
 
 button:hover {

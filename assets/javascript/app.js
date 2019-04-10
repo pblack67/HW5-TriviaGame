@@ -10,16 +10,32 @@ var noAnswers = 0;
 var question1 = {
     questionText: "In which opera are there no deaths?",
     answers: ["Tosca", "Barber of Seville", "Rigoletto", "Carmen"],
-    correctAnswer: 1
+    correctAnswer: 1,
+    rewardImage: "assets/images/rabbitofseville.jpg"
 }
 
 var question2 = {
     questionText: "Which of the following is not the name of a real opera?",
     answers: ["Ernani", "Eugene Onegin", "Camembert", "The Nose"],
-    correctAnswer: 2
+    correctAnswer: 2,
+    rewardImage: "assets/images/Camembert.jpg"
 }
 
-var questions = [question1, question2];
+var question3 = {
+    questionText: "Who wrote the opera Aida?",
+    answers: ["Rossini", "Dvorak", "Verdi", "Jay Z"],
+    correctAnswer: 2,
+    rewardImage: "assets/images/Giuseppi_Verdi.jpg"
+}
+
+var question4 = {
+    questionText: "Who is the creative consultant of the Lyric Opera of Chicago?",
+    answers: ["Renee Fleming", "Placido Domingo", "Yo Yo Ma", "Chance the Rapper"],
+    correctAnswer: 0,
+    rewardImage: "assets/images/Fleming.jpg"
+}
+
+var questions = [question1, question2, question3, question4];
 
 function startQuestionTimer() {
     timer = questionTimeValue;
@@ -42,6 +58,7 @@ function initializeQuestion() {
     $("#answer4Button").text(question.answers[3]);
     $("#answerArea").show();
     $("#resultText").text("");
+    $("#rewardImage").hide();
     $("#reset").hide();
 }
 
@@ -53,6 +70,7 @@ function gameOver() {
     }
     $("#questionArea").hide();
     $("#resultText").text("");
+    $("#rewardImage").hide();    
     $("#reset").show();
 }
 
@@ -70,12 +88,15 @@ function handleAnswerClick(radioButton) {
     if (userAnswer === correctAnswer) {
         //          display happy message
         $("#resultText").text(correctAnswerText + " is correct! You're an opera whiz!");
+        $("#rewardImage").attr("src", questions[questionNumber].rewardImage);
+        $("#rewardImage").show();
         rightAnswers++;
     } else {
         //          display correct answer
         var userAnswer = parseInt(radioButton.val());
         var userAnswerText = questions[questionNumber].answers[userAnswer];
-            $("#resultText").text(userAnswerText + " is incorrect. The correct answer is " +
+        $("#resultText").text(userAnswerText +
+            " is incorrect. The correct answer is " +
             correctAnswerText +
             ". Study up on your operas!");
         wrongAnswers++;
@@ -96,7 +117,7 @@ function betweenQuestionHandler() {
     if (timer === 0) {
         //          stop between question timer
         clearInterval(timerId);
-        
+
         if (questionNumber < questions.length) {
             //          display next question
             initializeQuestion();
@@ -124,9 +145,10 @@ function timerHandler() {
         $("#answerArea").hide();
         //          display correct answer
         var answerIndex = questions[questionNumber].correctAnswer;
-        $("#resultText").text("You didn't answer the question! The correct answer is " +
-            questions[questionNumber].answers[answerIndex] +
-            ". Study up on your operas!");
+        // $("#resultText").text("You didn't answer the question! The correct answer is " +
+        //     questions[questionNumber].answers[answerIndex] +
+        //     ". Study up on your operas!");
+        $("#resultText").text("You didn't answer the question! No answer for you! Study up on your operas!");
         noAnswers++;
         //          start timer for between questions
         questionNumber++;
@@ -166,4 +188,5 @@ $(document).ready(function () {
 
     $("#questionArea").hide();
     $("#reset").show();
+    $("#rewardImage").hide();
 });

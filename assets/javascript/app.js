@@ -60,10 +60,24 @@ function startBetweenQuestionTimer() {
 function initializeQuestion() {
     var question = questions[questionNumber];
     $("#questionText").text(question.questionText);
-    $("#answer1Button").text(question.answers[0]);
-    $("#answer2Button").text(question.answers[1]);
-    $("#answer3Button").text(question.answers[2]);
-    $("#answer4Button").text(question.answers[3]);
+
+    // Generate answer buttons dynamically
+    // Makes it flexible for questions that can have any number of answers. :)
+    $("#answerArea").empty();
+    for (var i = 0; i < question.answers.length; i++) {
+        var answerButton = $("<button>").
+            addClass("answers").
+            attr("value", i).
+            text(question.answers[i]);
+        $("#answerArea").append(answerButton);
+        $("#answerArea").append($("<br>"));
+    }
+
+    // Remember to hook up listeners since the buttons vanish with every new question
+    $(".answers").on("click", function (event) {
+        handleAnswerClick($(this));
+    });
+
     $("#answerArea").show();
     $("#resultText").text("");
     $("#rewardImage").attr("src", "");
@@ -84,8 +98,8 @@ function gameOver() {
 }
 
 // on answer click
-function handleAnswerClick(radioButton) {
-    console.log("Answer selected", radioButton.val());
+function handleAnswerClick(button) {
+    console.log("Answer selected", button.val());
     // $(".answers").prop("disabled", true);
     $("#answerArea").hide();
     //      stop question timer 
@@ -93,7 +107,7 @@ function handleAnswerClick(radioButton) {
     //      if correct answer
     var correctAnswer = questions[questionNumber].correctAnswer;
     var correctAnswerText = questions[questionNumber].answers[correctAnswer];
-    var userAnswer = parseInt(radioButton.val());
+    var userAnswer = parseInt(button.val());
     if (userAnswer === correctAnswer) {
         //          display happy message
         $("#resultText").text(correctAnswerText + " is correct! You're an opera whiz!");
@@ -102,7 +116,7 @@ function handleAnswerClick(radioButton) {
         rightAnswers++;
     } else {
         //          display correct answer
-        var userAnswer = parseInt(radioButton.val());
+        var userAnswer = parseInt(button.val());
         var userAnswerText = questions[questionNumber].answers[userAnswer];
         $("#resultText").text(userAnswerText +
             " is incorrect. The correct answer is " +
@@ -152,11 +166,8 @@ function timerHandler() {
         //          stop question timer
         clearInterval(timerId);
         $("#answerArea").hide();
-        //          display correct answer
+        // taunt user for not answering question at all
         var answerIndex = questions[questionNumber].correctAnswer;
-        // $("#resultText").text("You didn't answer the question! The correct answer is " +
-        //     questions[questionNumber].answers[answerIndex] +
-        //     ". Study up on your operas!");
         $("#resultText").text("You didn't answer the question! No answer for you! Study up on your operas!");
         noAnswers++;
         //          start timer for between questions
@@ -186,10 +197,6 @@ function reset() {
 }
 
 $(document).ready(function () {
-
-    $(".answers").on("click", function (event) {
-        handleAnswerClick($(this));
-    });
 
     $("#reset").on("click", function (event) {
         reset();

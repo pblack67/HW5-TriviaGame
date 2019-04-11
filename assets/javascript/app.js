@@ -6,6 +6,7 @@ var questionNumber = 0;
 var rightAnswers = 0;
 var wrongAnswers = 0;
 var noAnswers = 0;
+var tauntPicture = "assets/images/taunt.jpg";
 
 var questions = [
     {
@@ -112,7 +113,6 @@ function handleAnswerClick(button) {
         //          display happy message
         $("#resultText").text(correctAnswerText + " is correct! You're an opera whiz!");
         $("#rewardImage").attr("src", questions[questionNumber].rewardImage);
-        $("#rewardImage").show();
         rightAnswers++;
     } else {
         //          display correct answer
@@ -122,8 +122,10 @@ function handleAnswerClick(button) {
             " is incorrect. The correct answer is " +
             correctAnswerText +
             ". Study up on your operas!");
+        $("#rewardImage").attr("src", tauntPicture);
         wrongAnswers++;
     }
+    $("#rewardImage").show();
 
     $("#timer").text("Time remaining: 0");
     questionNumber++;
@@ -170,6 +172,8 @@ function timerHandler() {
         var answerIndex = questions[questionNumber].correctAnswer;
         $("#resultText").text("You didn't answer the question! No answer for you! Study up on your operas!");
         noAnswers++;
+        $("#rewardImage").attr("src", tauntPicture);
+        $("#rewardImage").show();
         //          start timer for between questions
         questionNumber++;
         if (questionNumber < questions.length) {

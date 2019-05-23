@@ -1,14 +1,14 @@
-var timer = 0;
-var timerId = 0;
-var questionTimeValue = 15;
-var betweenQuestionTimeValue = 5;
-var questionNumber = 0;
-var rightAnswers = 0;
-var wrongAnswers = 0;
-var noAnswers = 0;
-var tauntPicture = "assets/images/taunt.jpg";
+let timer = 0;
+let timerId = 0;
+let questionTimeValue = 15;
+let betweenQuestionTimeValue = 5;
+let questionNumber = 0;
+let rightAnswers = 0;
+let wrongAnswers = 0;
+let noAnswers = 0;
+let tauntPicture = "assets/images/taunt.jpg";
 
-var questions = [
+let questions = [
     {
         questionText: "In which opera are there no deaths?",
         answers: ["Tosca", "Barber of Seville", "Rigoletto", "Carmen"],
@@ -44,7 +44,6 @@ var questions = [
         rewardImage: "assets/images/carmen.jpg"
     }
 ]
-// var questions = [question1, question2, question3, question4, question5];
 
 function startQuestionTimer() {
     timer = questionTimeValue;
@@ -59,14 +58,14 @@ function startBetweenQuestionTimer() {
 
 
 function initializeQuestion() {
-    var question = questions[questionNumber];
+    let question = questions[questionNumber];
     $("#questionText").text(question.questionText);
 
     // Generate answer buttons dynamically
     // Makes it flexible for questions that can have any number of answers. :)
     $("#answerArea").empty();
-    for (var i = 0; i < question.answers.length; i++) {
-        var answerButton = $("<button>").
+    for (let i = 0; i < question.answers.length; i++) {
+        let answerButton = $("<button>").
             addClass("answers").
             attr("value", i).
             text(question.answers[i]);
@@ -106,9 +105,9 @@ function handleAnswerClick(button) {
     //      stop question timer 
     clearInterval(timerId);
     //      if correct answer
-    var correctAnswer = questions[questionNumber].correctAnswer;
-    var correctAnswerText = questions[questionNumber].answers[correctAnswer];
-    var userAnswer = parseInt(button.val());
+    let correctAnswer = questions[questionNumber].correctAnswer;
+    let correctAnswerText = questions[questionNumber].answers[correctAnswer];
+    let userAnswer = parseInt(button.val());
     if (userAnswer === correctAnswer) {
         //          display happy message
         $("#resultText").text(correctAnswerText + " is correct! You're an opera whiz!");
@@ -116,8 +115,8 @@ function handleAnswerClick(button) {
         rightAnswers++;
     } else {
         //          display correct answer
-        var userAnswer = parseInt(button.val());
-        var userAnswerText = questions[questionNumber].answers[userAnswer];
+        let userAnswer = parseInt(button.val());
+        let userAnswerText = questions[questionNumber].answers[userAnswer];
         $("#resultText").text(userAnswerText +
             " is incorrect. The correct answer is " +
             correctAnswerText +
@@ -169,7 +168,6 @@ function timerHandler() {
         clearInterval(timerId);
         $("#answerArea").hide();
         // taunt user for not answering question at all
-        var answerIndex = questions[questionNumber].correctAnswer;
         $("#resultText").text("You didn't answer the question! No answer for you! Study up on your operas!");
         noAnswers++;
         $("#rewardImage").attr("src", tauntPicture);

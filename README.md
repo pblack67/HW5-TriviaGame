@@ -2,6 +2,9 @@
 
 * URL: [https://pblack67.github.io/OperaTriviaGame/](https://pblack67.github.io/OperaTriviaGame/)
 
+![Correct](/images/correct.png)
+![Incorrect](/images/incorrect.png)
+
 * Technologies: HTML, CSS, JavaScript, Events, jQuery, Objects, Timers 
 
 ## Overview
